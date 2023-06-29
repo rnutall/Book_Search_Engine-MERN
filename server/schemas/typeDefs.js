@@ -8,7 +8,7 @@ type User {
     bookcount: String
     savedbooks: [Books]!
   }
- type Book = {
+ type Book {
     bookId: _bookId (Not the _id, but the book's id value returned from Google's Book API.)
     authors: [] (An array of strings, as there may be more than one author.)
     description: 
@@ -17,16 +17,25 @@ type User {
     link: String
 }
 
- type Auth = {
+ type Auth {
     token: ID!
     User: User
 }   
 
-type Query = {
+input BookInput {
+    bookId: String!
+    authors: [String]
+    description: String
+    title: String!
+    image: String
+    link: String
+  }
+
+type Query {
     me: Which returns a User type.
  }
 
- type Mutation = {
+ type Mutation {
     login: (email: String!, password: String!): Auth (Accepts an email and password as parameters; returns an Auth type.)
     addUser: (username: String!): User (Accepts a username, email, and password as parameters; returns an Auth type.)
     saveBook: [book author] (Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a User type. Look into creating what's known as an input type to handle all of these parameters!)
